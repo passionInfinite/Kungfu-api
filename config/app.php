@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'KungFu'),
 
     /*
     |--------------------------------------------------------------------------
@@ -154,11 +154,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        KungFu\Providers\AppServiceProvider::class,
+        KungFu\Providers\AuthServiceProvider::class,
+        // KungFu\Providers\BroadcastServiceProvider::class,
+        KungFu\Providers\EventServiceProvider::class,
+        KungFu\Providers\RouteServiceProvider::class,
 
     ],
 
@@ -210,5 +210,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+
+    'jwt' => [
+        'iss' => 'KungFu',
+        'aud' => 'KungFu'
+    ]
 
 ];
