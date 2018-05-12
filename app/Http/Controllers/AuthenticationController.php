@@ -4,6 +4,7 @@ namespace KungFu\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use KungFu\AccessTokenHelper;
 use KungFu\Faculty;
 use KungFu\Response;
@@ -19,8 +20,8 @@ class AuthenticationController extends Controller
 
         $faculty = Faculty::query()->where('email', $request->email)->firstOrFail();
 
-        if (Auth::attempt($request->only(['email', 'password']))) {
-            return AccessTokenHelper::build()->generateAccessToken($faculty);
+        if (Hash::check($request->password, $faculty->password)) {
+            return Response::raw(200, ['accessToken' => AccessTokenHelper::build()->generateAccessToken($faculty)]);
         } else {
             return Response::errors(422, [
                 'email' => 'check your email',
@@ -38,14 +39,13 @@ class AuthenticationController extends Controller
         ]);
 
         $faculty = new Faculty();
-        $fillables = $request->only(['name', 'email']);
+        $fillables = array_keys($request->only(['name', 'email']));
 
         foreach ($fillables as $fillable) {
             if ($request->has($fillable)) {
                 $faculty->setAttribute($fillable, $request->get($fillable));
             }
         }
-
         $faculty->password = bcrypt($request->get('password'));
         $faculty->save();
 

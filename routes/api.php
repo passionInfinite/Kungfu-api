@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use KungFu\Http\Middleware\Authenticated;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +18,14 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/', 'AuthenticationController@login');
 });
 
-Route::group(['prefix' => 'faculties', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'faculties', 'middleware' => Authenticated::class], function () {
     Route::post('/', 'AuthenticationController@register');
 });
 
-Route::group(['prefix' => 'students', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'students', 'middleware' => Authenticated::class], function () {
    Route::get('/', 'StudentsController@readAll');
-   Route::get('/:id', 'StudentsController@read');
+   Route::get('/{id}', 'StudentsController@read');
    Route::post('/', 'StudentsController@create');
-   Route::put('/:id', 'StudentsController@update');
-   Route::delete('/:id', 'StudentsController@delete');
+   Route::put('/{id}', 'StudentsController@update');
+   Route::delete('/{id}', 'StudentsController@delete');
 });

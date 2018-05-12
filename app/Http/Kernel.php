@@ -3,6 +3,7 @@
 namespace KungFu\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use KungFu\Http\Middleware\Authenticated;
 use KungFu\Http\Middleware\RequestsToAJAX;
 
 class Kernel extends HttpKernel
@@ -20,7 +21,7 @@ class Kernel extends HttpKernel
         \KungFu\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \KungFu\Http\Middleware\TrustProxies::class,
-        RequestsToAJAX::class
+        RequestsToAJAX::class,
     ];
 
     /**
