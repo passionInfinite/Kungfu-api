@@ -11,4 +11,8 @@ class Level extends Model
     public function batches() {
         return $this->hasMany(Batch::class);
     }
+
+    public function ranks() {
+        return $this->hasMany(Level::class);
+    }
 }
