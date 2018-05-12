@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'api',
-        'passwords' => 'users',
+        'passwords' => 'faculties',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'api' => [
             'driver' => 'jwt',
-            'provider' => 'students',
+            'provider' => 'faculties',
         ],
     ],
 
@@ -60,9 +60,9 @@ return [
     */
 
     'providers' => [
-        'students' => [
+        'faculties' => [
             'driver' => 'eloquent',
-            'model' => App\Student::class,
+            'model' => \KungFu\Faculty::class,
         ],
     ],
 
@@ -82,8 +82,8 @@ return [
     */
 
     'passwords' => [
-        'students' => [
-            'provider' => 'students',
+        'faculties' => [
+            'provider' => 'faculties',
             'table' => 'password_resets',
             'expire' => 60,
         ],

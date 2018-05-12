@@ -46,10 +46,10 @@ class AccessTokenHelper
         return $claims;
     }
 
-    public function generateAccessToken($user)
+    public function generateAccessToken($faculty)
     {
         $claims = [
-            'sub' => $user->_id,
+            'sub' => $faculty->id,
             'typ' => self::ACCESS_TOKEN
         ];
         return $this->encode($claims);
