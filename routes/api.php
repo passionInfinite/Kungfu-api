@@ -37,3 +37,11 @@ Route::group(['prefix' => 'sales', 'middleware' => Authenticated::class], functi
     Route::get('/student/{id}', 'SalesController@read');
     Route::delete('/{id}', 'SalesController@delete');
 });
+
+Route::group(['prefix' => 'levels', 'middleware' => Authenticated::class], function () {
+    Route::post('/', 'LevelsController@create');
+    Route::get('/', 'LevelsController@readAll');
+    Route::get('/{id}', 'LevelsController@read');
+    Route::put('/{id}', 'LevelsController@update');
+    Route::delete('/{id}', 'LevelsController@delete');
+});
