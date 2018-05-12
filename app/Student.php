@@ -20,4 +20,8 @@ class Student extends Model
         return $this->parents()->count() == 0 ? false : true;
     }
 
+    public function sales() {
+        return $this->hasMany(Sale::class);
+    }
+
 }

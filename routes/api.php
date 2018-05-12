@@ -29,3 +29,11 @@ Route::group(['prefix' => 'students', 'middleware' => Authenticated::class], fun
    Route::put('/{id}', 'StudentsController@update');
    Route::delete('/{id}', 'StudentsController@delete');
 });
+
+Route::group(['prefix' => 'sales', 'middleware' => Authenticated::class], function () {
+    Route::post('/', 'SalesController@create');
+    Route::get('/', 'SalesController@readAll');
+    Route::get('/{id}', 'SalesController@readById');
+    Route::get('/student/{id}', 'SalesController@read');
+    Route::delete('/{id}', 'SalesController@delete');
+});

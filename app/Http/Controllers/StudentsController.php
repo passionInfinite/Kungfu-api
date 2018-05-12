@@ -59,7 +59,7 @@ class StudentsController extends Controller
     }
 
     public function read(Request $request, $id) {
-        $student = Student::query()->with(['parents', 'children'])->findOrFail($id);
+        $student = Student::query()->with(['parents', 'children', 'sales'])->findOrFail($id);
         return Response::raw(200, $student);
     }
 
