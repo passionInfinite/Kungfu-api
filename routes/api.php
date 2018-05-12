@@ -45,3 +45,11 @@ Route::group(['prefix' => 'levels', 'middleware' => Authenticated::class], funct
     Route::put('/{id}', 'LevelsController@update');
     Route::delete('/{id}', 'LevelsController@delete');
 });
+
+Route::group(['prefix' => 'batches', 'middleware' => Authenticated::class], function () {
+    Route::post('/', 'BatchesController@create');
+    Route::get('/', 'BatchesController@readAll');
+    Route::get('/{id}', 'BatchesController@read');
+    Route::put('/{id}', 'BatchesController@update');
+    Route::delete('/{id}', 'BatchesController@delete');
+});

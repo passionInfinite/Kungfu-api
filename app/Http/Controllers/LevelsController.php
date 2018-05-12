@@ -24,13 +24,13 @@ class LevelsController extends Controller
 
     public function read(Request $request, $id)
     {
-        $level = Level::query()->findOrFail($id);
+        $level = Level::query()->with(['batches'])->findOrFail($id);
         return Response::raw(200, $level);
     }
 
     public function readAll(Request $request)
     {
-        $levels = Level::query()->get();
+        $levels = Level::query()->with(['batches'])->get();
         return Response::raw(200, $levels);
     }
 
