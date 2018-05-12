@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'auth'], function () {
-   Route::post('/', 'AuthenticationController@login');
+    Route::post('/', 'AuthenticationController@login');
 });
 
 Route::group(['prefix' => 'faculties', 'middleware' => 'auth'], function () {
