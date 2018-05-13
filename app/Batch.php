@@ -13,4 +13,8 @@ class Batch extends Model
     public function level() {
         return $this->belongsTo(Level::class);
     }
+
+    public function attendances() {
+        return $this->hasMany(Attendance::class);
+    }
 }

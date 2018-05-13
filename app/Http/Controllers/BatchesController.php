@@ -33,13 +33,13 @@ class BatchesController extends Controller
 
     public function read(Request $request, $id)
     {
-        $batch = Batch::query()->with('level')->findOrFail($id);
+        $batch = Batch::query()->with(['level', 'attendances.student'])->findOrFail($id);
         return Response::raw(200, $batch);
     }
 
     public function readAll(Request $request)
     {
-        $batches = Batch::query()->with('level')->get();
+        $batches = Batch::query()->with(['level','attendances.student'])->get();
         return Response::raw(200, $batches);
     }
 

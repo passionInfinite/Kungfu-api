@@ -24,4 +24,8 @@ class Student extends Model
         return $this->hasMany(Sale::class);
     }
 
+    public function attendances() {
+        return $this->hasMany(Attendance::class);
+    }
+
 }

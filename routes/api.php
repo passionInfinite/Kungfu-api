@@ -61,3 +61,12 @@ Route::group(['prefix' => 'ranks', 'middleware' => Authenticated::class], functi
     Route::put('/{id}', 'RanksController@update');
     Route::delete('/{id}', 'RanksController@delete');
 });
+
+Route::group(['prefix' => 'attendance', 'middleware' => Authenticated::class], function () {
+    Route::post('/', 'AttendanceController@create');
+    Route::get('/', 'AttendanceController@readAll');
+    Route::get('/{id}', 'AttendanceController@read');
+    Route::put('/{id}', 'AttendanceController@update');
+    Route::delete('/{id}', 'AttendanceController@delete');
+});
+
