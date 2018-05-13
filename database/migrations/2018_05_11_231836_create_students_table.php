@@ -22,6 +22,8 @@ class CreateStudentsTable extends Migration
             $table->string('relation')->nullable();
             $table->string('address');
             $table->boolean('enrolled');
+            $table->unsignedInteger('rank_id');
+            $table->foreign('rank_id')->references('id')->on('ranks');
             $table->timestamps();
         });
     }

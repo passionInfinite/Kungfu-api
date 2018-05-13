@@ -17,16 +17,25 @@ class AttendanceController extends Controller
             'batch_id' => 'required|exists:batches,id'
         ]);
 
-        $student = Student::query()->findOrFail($request->get('student_id'));
-        $batch = Batch::query()->findOrFail($request->get('batch_id'));
+        $attendance = Attendance::query()->where('date', Carbon::today()->toDateString())
+            ->where('student_id', '=', $request->get('student_id'));
 
-        $attendance = new Attendance();
-        $attendance->date = Carbon::now()->toDateString();
-        $attendance->student()->associate($student);
-        $attendance->batch()->associate($batch);
-        $attendance->save();
+        if (!$attendance->exists()) {
+            $student = Student::query()->findOrFail($request->get('student_id'));
+            $batch = Batch::query()->findOrFail($request->get('batch_id'));
 
-        return Response::raw(201, $attendance);
+            $attendance = new Attendance();
+            $attendance->date = Carbon::now()->toDateString();
+            $attendance->student()->associate($student);
+            $attendance->batch()->associate($batch);
+            $attendance->save();
+
+            return Response::raw(201, $attendance);
+        } else {
+            return Response::raw(422, [
+                'message' => "You have already attended today's lecture"
+            ]);
+        }
     }
 
     public function read(Request $request, $id) {
@@ -48,10 +57,19 @@ class AttendanceController extends Controller
             'date' => 'required|date|date_format:m-d-Y'
         ]);
 
-        $attendance->update($request->only(['student_id', 'batch_id']));
-        $attendance->date = Carbon::parse($request->get('date'))->toDateString();
-        $attendance->save();
+        $attendance = Attendance::query()
+            ->where('date', Carbon::parse($request->get('date'))->toDateString())
+            ->where('student_id', '=', $request->get('student_id'));
 
+        if (!$attendance->exists()) {
+            return Response::raw(422, [
+                'message' => "Attendance doesn't exists!"
+            ]);
+        } else {
+            $attendance->update($request->only(['student_id', 'batch_id']));
+            $attendance->date = Carbon::parse($request->get('date'))->toDateString();
+            $attendance->save();
+        }
         return Response::raw(200, $attendance);
     }
 

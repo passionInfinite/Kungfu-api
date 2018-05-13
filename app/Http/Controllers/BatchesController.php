@@ -24,7 +24,7 @@ class BatchesController extends Controller
 
         $batch = new Batch();
         $batch->day = $request->get('day');
-        $batch->time = Carbon::now()->toTimeString();
+        $batch->time = Carbon::parse($request->get('time'))->toTimeString();
         $batch->level()->associate($level);
         $batch->save();
 

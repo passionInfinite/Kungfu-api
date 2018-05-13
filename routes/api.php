@@ -70,3 +70,10 @@ Route::group(['prefix' => 'attendance', 'middleware' => Authenticated::class], f
     Route::delete('/{id}', 'AttendanceController@delete');
 });
 
+Route::group(['prefix' => 'progress', 'middleware' => Authenticated::class], function () {
+    Route::post('/', 'ProgressController@create');
+    Route::get('/', 'ProgressController@readAll');
+    Route::get('/{id}', 'ProgressController@read');
+    Route::put('/{id}', 'ProgressController@update');
+    Route::delete('/{id}', 'ProgressController@delete');
+});

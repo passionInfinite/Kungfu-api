@@ -4,6 +4,7 @@ namespace KungFu\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use KungFu\Rank;
 use KungFu\Response;
 use KungFu\Student;
 
@@ -25,6 +26,8 @@ class StudentsController extends Controller
             'parents.*.enrolled' => 'required_with:parents|boolean'
         ]);
 
+        $defaultRank = Rank::query()->where('belt_color', '=', 'white')->firstOrFail();
+
         $student = new Student();
         $fillables = array_keys($request->only(['name', 'mobile_no', 'email', 'address']));
         foreach ($fillables as $fillable) {
@@ -34,6 +37,7 @@ class StudentsController extends Controller
         }
         $student->birthday = Carbon::createFromFormat('m-d-Y', $request->get('birthday'));
         $student->enrolled = true;
+        $student->rank()->associate($defaultRank);
         $student->save();
 
         if ($request->has('parents')) {
@@ -49,6 +53,7 @@ class StudentsController extends Controller
                 } else {
                     $parentStudent->address = $parent['address'];
                 }
+                $parentStudent->rank()->associate($defaultRank);
                 $parentStudent->save();
                 $student->parents()->attach($parentStudent->id);
                 $student->save();
