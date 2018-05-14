@@ -22,6 +22,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \KungFu\Http\Middleware\TrustProxies::class,
         RequestsToAJAX::class,
+        \Barryvdh\Cors\HandleCors::class,
     ];
 
     /**

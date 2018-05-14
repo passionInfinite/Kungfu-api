@@ -69,7 +69,7 @@ class StudentsController extends Controller
     }
 
     public function readAll(Request $request) {
-        $students = Student::query()->with(['parents', 'children', 'attendances.batch'])->where('enrolled', false)->get();
+        $students = Student::query()->with(['parents', 'children', 'attendances.batch'])->where('enrolled', true)->get();
         return Response::raw(200, $students);
     }
 
