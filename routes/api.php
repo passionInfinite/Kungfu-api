@@ -20,6 +20,10 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'faculties', 'middleware' => Authenticated::class], function () {
     Route::post('/', 'AuthenticationController@register');
+    Route::get('/', 'FacultiesController@readAll');
+    Route::get('/{id}', 'FacultiesController@read');
+    Route::update('/{id}', 'FacultiesController@update');
+    Route::delete('/{id}', 'FacultiesController@delete');
 });
 
 Route::group(['prefix' => 'students', 'middleware' => Authenticated::class], function () {
