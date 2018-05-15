@@ -22,7 +22,7 @@ Route::group(['prefix' => 'faculties', 'middleware' => Authenticated::class], fu
     Route::post('/', 'AuthenticationController@register');
     Route::get('/', 'FacultiesController@readAll');
     Route::get('/{id}', 'FacultiesController@read');
-    Route::update('/{id}', 'FacultiesController@update');
+    Route::put('/{id}', 'FacultiesController@update');
     Route::delete('/{id}', 'FacultiesController@delete');
 });
 
