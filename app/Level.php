@@ -13,6 +13,6 @@ class Level extends Model
     }
 
     public function ranks() {
-        return $this->hasMany(Level::class);
+        return $this->hasMany(Rank::class);
     }
 }
