@@ -64,12 +64,12 @@ class StudentsController extends Controller
     }
 
     public function read(Request $request, $id) {
-        $student = Student::query()->with(['parents', 'rank', 'children', 'sales', 'attendances.batch'])->findOrFail($id);
+        $student = Student::query()->with(['parents', 'rank', 'progress.toRank.level', 'progress.fromRank.level', 'children', 'sales', 'attendances.batch'])->findOrFail($id);
         return Response::raw(200, $student);
     }
 
     public function readAll(Request $request) {
-        $students = Student::query()->with(['parents', 'rank', 'children', 'attendances.batch'])->where('enrolled', true)->get();
+        $students = Student::query()->with(['parents', 'rank', 'progress.toRank.level', 'progress.fromRank.level', 'children', 'attendances.batch'])->where('enrolled', true)->get();
         return Response::raw(200, $students);
     }
 

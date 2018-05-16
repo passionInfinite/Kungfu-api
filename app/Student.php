@@ -31,4 +31,8 @@ class Student extends Model
     public function rank() {
         return $this->belongsTo(Rank::class);
     }
+
+    public function progress() {
+        return $this->hasMany(Progress::class);
+    }
 }
