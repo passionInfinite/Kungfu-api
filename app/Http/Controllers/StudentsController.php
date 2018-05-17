@@ -35,7 +35,7 @@ class StudentsController extends Controller
                 $student->setAttribute($fillable, $request->get($fillable));
             }
         }
-        $student->birthday = Carbon::createFromFormat('m-d-Y', $request->get('birthday'));
+        $student->birthday = Carbon::createFromFormat('Y-m-d', $request->get('birthday'));
         $student->enrolled = true;
         $student->rank()->associate($defaultRank);
         $student->save();
@@ -82,7 +82,11 @@ class StudentsController extends Controller
         ]);
 
         $student = Student::query()->findOrFail($id);
-        $student->update($request->only(['name','birthday', 'mobile_no', 'address']));
+        $student->update($request->only(['name', 'mobile_no', 'address']));
+
+        if ($request->has('birthday')) {
+            $student->update(['birthday' => Carbon::createFromFormat('Y-m-d', $request->get('birthday'))]);
+        }
         return Response::raw(200, $student);
     }
 
