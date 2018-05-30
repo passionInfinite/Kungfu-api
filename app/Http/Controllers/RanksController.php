@@ -43,15 +43,14 @@ class RanksController extends Controller
     {
         $this->validate($request, [
             'level_id' => 'exists:levels,id',
-            'belt_color' => 'string|unique:ranks,belt_color'
+            'belt_color' => 'string|exists:ranks,belt_color'
         ]);
 
         if ($request->has('level_id')) {
-            $level = $level = Level::query()->findOrFail($id);
+            $level = Level::query()->findOrFail($request->get('level_id'));
         }
 
         $rank = Rank::query()->findOrFail($id);
-        $rank->update($request->only(['belt_color']));
 
         if ($request->has('level_id')) {
             $rank->level()->associate($level);
