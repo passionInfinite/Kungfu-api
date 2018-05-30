@@ -38,12 +38,12 @@ class ProgressController extends Controller
     }
 
     public function read(Request $request, $id) {
-        $progress = Progress::query()->with(['toRank', 'fromRank'])->findOrFail($id);
+        $progress = Progress::query()->with(['toRank', 'fromRank', 'student'])->findOrFail($id);
         return Response::raw(200, $progress);
     }
 
     public function readAll(Request $request) {
-        $progresses = Progress::query()->with(['toRank', 'fromRank'])->get();
+        $progresses = Progress::query()->with(['toRank', 'fromRank', 'student'])->get();
         return Response::raw(200, $progresses);
     }
 
