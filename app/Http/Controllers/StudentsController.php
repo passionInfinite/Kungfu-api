@@ -77,7 +77,7 @@ class StudentsController extends Controller
         $this->validate($request, [
             'name' => 'string',
             'birthday' => 'string|date',
-            'mobile_no' => 'numeric|size:10|unique:students,mobile_no',
+            'mobile_no' => 'string|size:10|unique:students,mobile_no',
             'address' => 'string'
         ]);
 
