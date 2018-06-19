@@ -4,6 +4,7 @@ namespace KungFu\Http\Controllers;
 
 use Illuminate\Http\Request;
 use KungFu\Level;
+use KungFu\Rank;
 use KungFu\Response;
 
 class LevelsController extends Controller
@@ -37,12 +38,18 @@ class LevelsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'type' => 'string|unique:levels,type'
+            'level_id' => 'string|unique:levels,id',
+            'ranks' => 'array',
+            'ranks.*' => 'string|exists:ranks,id'
         ]);
 
-        $level = Level::query()->findOrFail($id);
-        $level->update($request->only(['type']));
-        return Response::raw(200, $level);
+        $ranks = $request->ranks;
+        foreach ($ranks as $rankId) {
+            $rank = Rank::query()->firstOrFail($rankId);
+            $rank->level_id = $request->level_id;
+            $rank->save();
+        }
+        return Response::raw(200, []);
     }
 
     public function delete(Request $request, $id)
