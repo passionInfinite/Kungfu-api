@@ -33,7 +33,7 @@ class ProgressController extends Controller
             $student->save();
             return Response::raw(201, $progress);
         } else {
-            return Response::raw(200, ['message' => 'Next rank should be greater than current rank!']);
+            return Response::raw(422, ['message' => 'Next rank should be greater than current rank!']);
         }
     }
 
