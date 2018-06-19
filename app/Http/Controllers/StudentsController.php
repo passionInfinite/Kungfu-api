@@ -20,7 +20,7 @@ class StudentsController extends Controller
             'address' => 'required|string',
             'parents' => 'array',
             'parents.*.name' => 'required_with:parents|string',
-            'parents.*.mobile_no' => 'required_with:parents|string|size:10|unique:students,mobile_no',
+            'parents.*.mobile_no' => 'required_with:parents|string|size:10',
             'parents.*.email' => 'required_with:parents|email|max:255|unique:students,email',
             'parents.*.relation' => 'required_with:parents|in:Mother,Father',
             'parents.*.enrolled' => 'required_with:parents|boolean'
