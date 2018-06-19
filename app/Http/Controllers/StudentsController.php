@@ -77,7 +77,7 @@ class StudentsController extends Controller
     public function update(Request $request, $id) {
         $this->validate($request, [
             'name' => 'string',
-            'birthday' => 'string|date',
+            'birthday' => 'date',
             'mobile_no' => 'string|size:10|'.Rule::unique('students', 'mobile_no')->ignore($id),
             'address' => 'string'
         ]);
