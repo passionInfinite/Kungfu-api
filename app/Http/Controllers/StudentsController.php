@@ -4,6 +4,7 @@ namespace KungFu\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use KungFu\Rank;
 use KungFu\Response;
 use KungFu\Student;
@@ -77,7 +78,7 @@ class StudentsController extends Controller
         $this->validate($request, [
             'name' => 'string',
             'birthday' => 'string|date',
-            'mobile_no' => 'string|size:10|unique:students,mobile_no',
+            'mobile_no' => 'string|size:10|'.Rule::unique('students', 'mobile_no')->ignore($id),
             'address' => 'string'
         ]);
 
